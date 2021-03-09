@@ -6,6 +6,8 @@
 //   {input: [0,1], output: [1]},
 //   {input: [1,1], output: [0]}
 
+// const { json } = require("express");
+
 // ]);
 // const diagram = document.getElementById('diagram');
 // diagram.innerHTML = brain.utilities.toSVG(net);
@@ -134,19 +136,25 @@ const trainingData = [
 const lstm = new brain.recurrent.LSTM();
 // const net = new brain.NeuralNetwork();
 
+
 const result = lstm.train(trainingData, {
   iterations: 20,
   log: details => console.log(details),
   // keepNetworkIntact: true,
   errorThresh: 0.011
 });
+
+console.log(lstm);
 // const result = net.train(trainingData, {
 //   iterations: 200,
 //   log: details => console.log(details),
 //   errorThresh: 0.011
 // });
 
-// const run1 = lstm.run('it was pretty good');
+const run1 = lstm.run('it was pretty good');
+let trainedNet = lstm.toFunction();
+console.log(trainedNet);
+console.log(trainedNet.toJSON());
 // const run = net.run('it was good');
 
 // console.log('run 1: Jane' + run1);
@@ -154,11 +162,17 @@ const result = lstm.train(trainingData, {
 // console.log('run 3: Spot' + run3);
 // console.log('run 4: It' + run4);
 // console.log(run1);
-const sentiment = lstm.toJSON();
-const net = new brain.recurrent.LSTM();
-net.fromJSON(sentiment);
-console.log(sentiment);
-console.log(lstm.fromJSON(sentiment));
+// const sentiment = lstm.toJSON();
+// const stringyNet = lstm.toJSON();
+// console.log(stringyNet);
+// const net = new brain.recurrent.LSTM(lstm.fromJSON(stringyNet));
+
+// console.log(net);
+// sentiment.run('it was good');
+// const net = new brain.recurrent.LSTM({activation: 'sigmoid'}, sentiment);
+// console.log(net);
+// net.run('it was good');
+// net.run('today was great');
 var d = document.getElementById('d');
 
 d.innerHTML = brain.utilities.toSVG(lstm);
